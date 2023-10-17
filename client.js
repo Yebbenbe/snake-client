@@ -21,8 +21,13 @@ const connect = function () {
   });
 
   conn.on("connect", () => {
-    conn.write("Name: BJJ");
+    conn.write("Move: up");
+    setTimeout(() => {
+      conn.write("Name: BJJ");
+      setInterval(() => {conn.write("Move: up")}, 80)
+    }, 80);
   });  
+
 
   return conn;
 };
