@@ -16,7 +16,7 @@ const MOVEMENT = {
 // message controls
 const MESSAGES = {
   '1': 'Say: Hi',
-  '2': `Say: My name\'s ${NAME}`,
+  '2': `Say: My name is ${NAME}`,
   '3': 'Say: and I\'m an alcohlic'
 };
 
