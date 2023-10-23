@@ -3,7 +3,7 @@ const {MOVEMENT, MESSAGES} = require('./constants');
 let connection;
 
 // setup interface to accept user input, passes the connection object
-const setupInput = function (conn) {
+const setupInput = function(conn) {
   // assigns the connection object to a global variable
   connection = conn;
 
@@ -20,12 +20,12 @@ const setupInput = function (conn) {
 };
 
 // callback function for stdin.on('data')
-const handleUserInput = function (key) {
+const handleUserInput = function(key) {
   
   // exit game if ctrl+c is pressed
   if (key === '\u0003') {
     process.exit();
-  };
+  }
 
   // movement controls and message controls
   if (key.includes('w') || key.includes('a') || key.includes('s') || key.includes('d')) {
@@ -34,7 +34,7 @@ const handleUserInput = function (key) {
     connection.write(MESSAGES[key]);
   } else {
     console.log('Invaiid key! Press ctrl+c to exit.');
-  };
+  }
 
 };
 
