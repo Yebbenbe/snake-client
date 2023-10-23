@@ -9,7 +9,7 @@ const setupInput = function (conn) {
   stdin.resume();
   // event listener, makes a callback to handleUserInput
   stdin.on("data", handleUserInput);
-  return connection;
+  return stdin;
 };
 
 const handleUserInput = function (key) {
@@ -28,6 +28,10 @@ const handleUserInput = function (key) {
     connection.write("Move: down");
   } else if (key === 'd') {
     connection.write("Move: right");
+  } else if (key === '1') {
+    connection.write('Say: I\'m gonna get you!');
+  } else if (key === '2') {
+    connection.write("Say: I\'m so behind");
   }
 
 }
