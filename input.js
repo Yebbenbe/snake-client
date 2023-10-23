@@ -29,6 +29,8 @@ const handleUserInput = function(key) {
 
   // movement controls and message controls
   if (key.includes('w') || key.includes('a') || key.includes('s') || key.includes('d')) {
+    // allows user to hold key
+    key = key.slice(0,1);
     connection.write(MOVEMENT[key]);
   } else if (key === '1' || key === '2' || key === '3') {
     connection.write(MESSAGES[key]);
