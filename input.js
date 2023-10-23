@@ -1,39 +1,41 @@
+// input.js
+const {MOVEMENT, MESSAGES} = require('./constants');
 let connection;
 
+// setup interface to accept user input, passes the connection object
 const setupInput = function (conn) {
-  // this is to allow the connection object to have access to this keyboard data
+  // assigns the connection object to a global variable
   connection = conn;
+
+  // allows for keyboard input
   const stdin = process.stdin;
   stdin.setRawMode(true);
   stdin.setEncoding("utf8");
   stdin.resume();
+
   // event listener, makes a callback to handleUserInput
   stdin.on("data", handleUserInput);
+
   return stdin;
 };
 
+// callback function for stdin.on('data')
 const handleUserInput = function (key) {
   
-  // check for ctrl+c input
+  // exit game if ctrl+c is pressed
   if (key === '\u0003') {
     process.exit();
-  }
+  };
 
-  // check for w, a, s, d keys and log corresponding movement command
-  if (key === 'w') {
-    connection.write("Move: up");
-  } else if (key === 'a') {
-    connection.write("Move: left");
-  } else if (key === 's') {
-    connection.write("Move: down");
-  } else if (key === 'd') {
-    connection.write("Move: right");
-  } else if (key === '1') {
-    connection.write('Say: I\'m gonna get you!');
-  } else if (key === '2') {
-    connection.write("Say: I\'m so behind");
-  }
+  // movement controls and message controls
+  if (key.includes('w') || key.includes('a') || key.includes('s') || key.includes('d')) {
+    connection.write(MOVEMENT[key]);
+  } else if (key === '1' || key === '2' || key === '3') {
+    connection.write(MESSAGES[key]);
+  } else {
+    console.log('Invaiid key! Press ctrl+c to exit.');
+  };
 
-}
+};
 
 module.exports = {setupInput};

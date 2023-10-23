@@ -1,11 +1,11 @@
 // client.js
 const net = require("net");
-const { IP, PORT } = require("./constants");
+const { INFO, IP, PORT, NAME } = require("./constants");
 
 
 // establishes a connection with the game server
-    const connect = function () {
-      const conn = net.createConnection({
+const connect = function () {
+  const conn = net.createConnection({
     host: IP,
     port: PORT,
   });
@@ -13,23 +13,18 @@ const { IP, PORT } = require("./constants");
   // interpret incoming data as text
   conn.setEncoding("utf8");
 
-  // listen for data, log what comes
-  conn.on("data", (data) => {
-    console.log("Server says:", data); // Log incoming data from the server
-  });
-
+  // event handler for connection
   conn.on("connect", () => {
     console.log("Successfully connected to game server");
+    console.log(INFO);
+    // sends user name to server
+    conn.write(NAME);
   });
 
-  conn.on("connect", () => {
-    conn.write("Name: BJJ");
-    //setTimeout(() => {
-    //  conn.write("Move: up");
-    //  setInterval(() => {conn.write("Move: up")}, 80)
-    //}, 80);
-  });  
-
+  // listen for messages from server
+  conn.on("data", (data) => {
+    console.log("Server says:", data); 
+  });
 
   return conn;
 };
